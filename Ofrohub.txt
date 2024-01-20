@@ -1,0 +1,83 @@
+
+
+
+
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+
+OrionLib:MakeNotification({
+    Name = "Orion Example",
+    Content = "Orion Example",
+    Image = "rbxassetid://4483345998",
+    Time = 5
+})
+
+local Window = OrionLib:MakeWindow({Name = "Orion Example", HidePremium = false, SaveConfig = true, ConfigFolder = "Orion"})
+
+--Auto farm--
+local SettingsTab = Window:MakeTab({
+    Name = "autofarm",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+local SettingsSection = SettingsTab:AddSection({
+    Name = "Auto farm"
+})
+
+-- auto click
+local auto click = SettingsSection:AddToggle({
+    Name = "auto click",
+    Default = false,
+    Callback = function(Value)
+        _G.Autoclick = Value
+
+        while _G.Autoclick do
+            local args = {
+                [1] = 1
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("Aero"):WaitForChild("AeroRemoteServices"):WaitForChild("ClickService"):WaitForChild("Click"):FireServer(unpack(args))
+
+            wait(1)
+        end
+    end
+})
+
+-- Auto rebirth 
+local auto rebirth = SettingsSection:AddToggle({
+    Name = "auto rebirth ",
+    Default = false,
+    Callback = function(Value)
+        _G.AutoRebirths = Value
+
+        while _G.AutoRebirths do
+            local args = {
+                [1] = 100
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("Aero"):WaitForChild("AeroRemoteServices"):WaitForChild("RebirthService"):WaitForChild("BuyRebirths"):FireServer(unpack(args))
+            
+            wait(1)
+        end
+    end
+})
+
+-- Destroy UI Button
+SettingsSection:AddButton({
+    Name = "Destroy UI",
+    Callback = function()
+        OrionLib:Destroy()
+    end    
+})
+
+-- Settings End --
+
+
+
+
+
+
+
+
+
+OrionLib:Init() -- UI Lib End
